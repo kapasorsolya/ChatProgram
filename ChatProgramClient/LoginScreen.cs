@@ -93,13 +93,35 @@ namespace ChatProgramClient
 
         private void buttonConnect_Click_1(object sender, EventArgs e)
         {
-
+           //I am trying to connect tto the server
             MessageBox.Show("clicked On connect Button");
             try
             {
                 MessageBox.Show("clicked On connect Button1");
                 ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 ClientSocket.BeginConnect(new IPEndPoint(IPAddress.Parse(this.textBoxAddress.Text), Int32.Parse(this.textBoxPort.Text)), new AsyncCallback(ConnectCallback), null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            try
+            {
+                MessagePackage package = new MessagePackage();
+                string fullMessage = package.ConcatenateMessage(4, 0, textBoxName.Text, String.Empty, String.Empty);
+                buffer = Encoding.ASCII.GetBytes(fullMessage);
+                ClientSocket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(SendCallback), null);
+            }
+            catch (SocketException) { }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            try
+            {
+                buffer = new byte[ClientSocket.ReceiveBufferSize];
+                ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
             }
             catch (Exception ex)
             {
