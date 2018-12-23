@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +21,6 @@ namespace ChatProgramClient
         public int MessageType { get; set; }
         byte[] buffer;
        
-
         public MessagingScreen(Socket socket)
         {
             ClientSocket = socket;
@@ -28,7 +28,57 @@ namespace ChatProgramClient
             InitializeComponent();
         }
 
+        private void buttonSend_Click(object sender, EventArgs e)
+        {
+            btnSendFile.Enabled = true;
+            try
+            {
+                MessagePackage package = new MessagePackage();
+                string toSendMessage;
+                toSendMessage = package.ConcatenateMessage(MessageType, 0, MyName, this.Text, textBoxType.Text);
+                byte[] buff = Encoding.ASCII.GetBytes(toSendMessage);
+                ClientSocket.BeginSend(buff, 0, buff.Length, SocketFlags.None, new AsyncCallback(SendCallback), null);
+            }
+            catch (SocketException) { }
+            catch (Exception ex)
+            {
+                MessageBox.Show("2 " + ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnSendFile_Click(object sender, EventArgs e)
+        {
+            ;
+        }
+        private void SendCallback(IAsyncResult AR)
+        {
+            try
+            {
+                ClientSocket.EndSend(AR);
+                textBoxType.Text = String.Empty;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("3 " + ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        public void AppendToTextBox(string text, string from)
+        {
 
+            if (!text.Equals(string.Empty))
+            {
+                textBoxMessageShow.Text += from;
+                textBoxMessageShow.Text += ": ";
+                textBoxMessageShow.Text += text;
+                textBoxMessageShow.Text += "\r\n";
+            }
+            
+        }
+
+       
+        private void MessagingScreen_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            parentScreen.RemoveFromOpenedWindowsList(this.Text);
+        }
     }
 }

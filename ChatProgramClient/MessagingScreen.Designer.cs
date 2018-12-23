@@ -28,30 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxShow = new System.Windows.Forms.RichTextBox();
+            this.textBoxMessageShow = new System.Windows.Forms.RichTextBox();
             this.btnSendFile = new System.Windows.Forms.Button();
             this.buttonSend = new System.Windows.Forms.Button();
             this.textBoxType = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // textBoxShow
+            // textBoxMessageShow
             // 
-            this.textBoxShow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textBoxMessageShow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxShow.Location = new System.Drawing.Point(48, 31);
-            this.textBoxShow.Name = "textBoxShow";
-            this.textBoxShow.ReadOnly = true;
-            this.textBoxShow.Size = new System.Drawing.Size(310, 160);
-            this.textBoxShow.TabIndex = 8;
-            this.textBoxShow.Text = "";
+            this.textBoxMessageShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxMessageShow.Location = new System.Drawing.Point(48, 31);
+            this.textBoxMessageShow.Name = "textBoxMessageShow";
+            this.textBoxMessageShow.ReadOnly = true;
+            this.textBoxMessageShow.Size = new System.Drawing.Size(310, 160);
+            this.textBoxMessageShow.TabIndex = 8;
+            this.textBoxMessageShow.Text = "";
             // 
             // btnSendFile
             // 
             this.btnSendFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSendFile.Enabled = false;
-            this.btnSendFile.Location = new System.Drawing.Point(48, 245);
+            this.btnSendFile.Location = new System.Drawing.Point(202, 245);
             this.btnSendFile.Name = "btnSendFile";
             this.btnSendFile.Size = new System.Drawing.Size(75, 23);
             this.btnSendFile.TabIndex = 7;
@@ -67,6 +67,7 @@
             this.buttonSend.TabIndex = 6;
             this.buttonSend.Text = "Send";
             this.buttonSend.UseVisualStyleBackColor = true;
+            this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
             // 
             // textBoxType
             // 
@@ -83,12 +84,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(529, 339);
-            this.Controls.Add(this.textBoxShow);
+            this.Controls.Add(this.textBoxMessageShow);
             this.Controls.Add(this.btnSendFile);
             this.Controls.Add(this.buttonSend);
             this.Controls.Add(this.textBoxType);
             this.Name = "MessagingScreen";
             this.Text = "MessagingScreen";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessagingScreen_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,7 +98,7 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox textBoxShow;
+        private System.Windows.Forms.RichTextBox textBoxMessageShow;
         private System.Windows.Forms.Button btnSendFile;
         private System.Windows.Forms.Button buttonSend;
         private System.Windows.Forms.TextBox textBoxType;

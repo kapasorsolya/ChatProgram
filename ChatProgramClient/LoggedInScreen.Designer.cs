@@ -37,9 +37,9 @@
             // btnChatRoom
             // 
             this.btnChatRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChatRoom.Location = new System.Drawing.Point(183, 280);
+            this.btnChatRoom.Location = new System.Drawing.Point(198, 54);
             this.btnChatRoom.Name = "btnChatRoom";
-            this.btnChatRoom.Size = new System.Drawing.Size(120, 23);
+            this.btnChatRoom.Size = new System.Drawing.Size(120, 44);
             this.btnChatRoom.TabIndex = 7;
             this.btnChatRoom.Text = "Chat room";
             this.btnChatRoom.UseVisualStyleBackColor = true;
@@ -47,9 +47,9 @@
             // btnToEveryone
             // 
             this.btnToEveryone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnToEveryone.Location = new System.Drawing.Point(30, 280);
+            this.btnToEveryone.Location = new System.Drawing.Point(198, 119);
             this.btnToEveryone.Name = "btnToEveryone";
-            this.btnToEveryone.Size = new System.Drawing.Size(120, 23);
+            this.btnToEveryone.Size = new System.Drawing.Size(120, 44);
             this.btnToEveryone.TabIndex = 6;
             this.btnToEveryone.Text = "Message to everyone";
             this.btnToEveryone.UseVisualStyleBackColor = true;
@@ -63,8 +63,9 @@
             this.listBoxContactList.FormattingEnabled = true;
             this.listBoxContactList.Location = new System.Drawing.Point(30, 22);
             this.listBoxContactList.Name = "listBoxContactList";
-            this.listBoxContactList.Size = new System.Drawing.Size(273, 251);
+            this.listBoxContactList.Size = new System.Drawing.Size(144, 199);
             this.listBoxContactList.TabIndex = 5;
+            this.listBoxContactList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxContactList_MouseDoubleClick);
             // 
             // lblContactList
             // 
@@ -79,7 +80,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 315);
+            this.ClientSize = new System.Drawing.Size(383, 270);
             this.Controls.Add(this.btnChatRoom);
             this.Controls.Add(this.btnToEveryone);
             this.Controls.Add(this.listBoxContactList);

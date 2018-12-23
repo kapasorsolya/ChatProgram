@@ -97,7 +97,7 @@ namespace ChatProgramClient
             MessageBox.Show("clicked On connect Button");
             try
             {
-                MessageBox.Show("clicked On connect Button1");
+                
                 ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 ClientSocket.BeginConnect(new IPEndPoint(IPAddress.Parse(this.textBoxAddress.Text), Int32.Parse(this.textBoxPort.Text)), new AsyncCallback(ConnectCallback), null);
             }
