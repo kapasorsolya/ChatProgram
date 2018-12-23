@@ -87,6 +87,8 @@
             this.Controls.Add(this.lblContactList);
             this.Name = "LoggedInScreen";
             this.Text = "You logged In succesfully";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoggedInScreen_FormClosed);
+            this.Load += new System.EventHandler(this.LoggedInScreen_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
