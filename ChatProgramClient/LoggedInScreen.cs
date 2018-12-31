@@ -64,6 +64,35 @@ namespace ChatProgramClient
                         this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
                         break;
                     case 1:
+                        if (tuple.Item2 == 0) //nincs fajl - 0 
+                        {
+                            if (tuple.Item3.Equals(myName))
+                            {
+                                MessagingScreen megnyitott;
+                                megnyitott = openWindows[tuple.Item4];
+                                megnyitott.AppendToTextBox(tuple.Item5, tuple.Item3);
+                                this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+                            }
+                            else if (!tuple.Item3.Equals(myName))
+                            {
+                                if (openWindows.ContainsKey(tuple.Item3) == true)
+                                {
+                                    MessagingScreen megnyitott;
+                                    megnyitott = openWindows[tuple.Item3];
+                                    megnyitott.AppendToTextBox(tuple.Item5, tuple.Item3);
+                                    this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+                                }
+                                else
+                                {
+                                    MessagingScreen messagingScreen = OpenNewMessagingScreen(new List<string>(), tuple.Item3, 1);
+                                    messagingScreen.AppendToTextBox(tuple.Item5, tuple.Item3);
+                                    openWindows.Add(tuple.Item3, messagingScreen);
+                                    messagingScreen.Show();
+                                    this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+                                    Application.Run();
+                                }
+                            }
+                        }
                         break;
                     case 2:
                         break;
