@@ -43,6 +43,7 @@
             this.btnChatRoom.TabIndex = 7;
             this.btnChatRoom.Text = "Chat room";
             this.btnChatRoom.UseVisualStyleBackColor = true;
+            this.btnChatRoom.Click += new System.EventHandler(this.btnChatRoom_Click);
             // 
             // btnToEveryone
             // 

@@ -15,7 +15,9 @@ namespace ChatProgramClient
     public partial class LoggedInScreen : Form
     {
         public Socket ClientSocket { get; set; }
+
         public List<string> UsernameList { get; set; }
+        List<string> chatRoomParticipants;
         string myName;
         byte[] buffer;
         Dictionary<string, MessagingScreen> openWindows;
@@ -28,6 +30,11 @@ namespace ChatProgramClient
             openWindows = new Dictionary<string, MessagingScreen>();
             InitializeComponent();
             lblContactList.Text = myName + "'s contact list";
+        }
+
+        internal void SetChatRoomParticipants(List<string> list)
+        {
+            this.chatRoomParticipants = list;
         }
 
         private void LoggedInScreen_Load(object sender, EventArgs e)
@@ -184,8 +191,30 @@ namespace ChatProgramClient
             }
         }
 
-    
+        private void btnChatRoom_Click(object sender, EventArgs e)
+        {
+            List<string> partnerList = new List<string>();
+            foreach (string name in UsernameList)
+            {
+                if (name.Equals(myName))
+                    continue;
+                partnerList.Add(name);
+            }
+            SelectChatRoom select = new SelectChatRoom();
+            select.UserNameList = partnerList;
+            select.ParentScreen = this;
+            select.ShowDialog();
 
+            MessagePackage mp = new MessagePackage();
+            chatRoomParticipants.Add(myName);
+            string partnerString = mp.ToUsernameString(chatRoomParticipants);
+            if (openWindows.ContainsKey(partnerString) == false)
+            {
+                MessagingScreen messagingScreen = OpenNewMessagingScreen(chatRoomParticipants, partnerString, 2);
+                openWindows.Add(partnerString, messagingScreen);
+                messagingScreen.Show();
+            }
+        }
     }
 }
 

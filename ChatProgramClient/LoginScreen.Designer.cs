@@ -40,7 +40,7 @@
             // buttonConnect
             // 
             this.buttonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonConnect.Location = new System.Drawing.Point(66, 227);
+            this.buttonConnect.Location = new System.Drawing.Point(63, 227);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(302, 44);
             this.buttonConnect.TabIndex = 13;
@@ -53,7 +53,7 @@
             this.textBoxPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPort.Location = new System.Drawing.Point(181, 170);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(187, 20);
+            this.textBoxPort.Size = new System.Drawing.Size(184, 20);
             this.textBoxPort.TabIndex = 12;
             // 
             // textBoxAddress
@@ -61,7 +61,7 @@
             this.textBoxAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAddress.Location = new System.Drawing.Point(181, 104);
             this.textBoxAddress.Name = "textBoxAddress";
-            this.textBoxAddress.Size = new System.Drawing.Size(187, 20);
+            this.textBoxAddress.Size = new System.Drawing.Size(184, 20);
             this.textBoxAddress.TabIndex = 11;
             // 
             // textBoxName
@@ -69,7 +69,7 @@
             this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxName.Location = new System.Drawing.Point(181, 35);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(187, 20);
+            this.textBoxName.Size = new System.Drawing.Size(184, 20);
             this.textBoxName.TabIndex = 10;
             // 
             // lblPort
@@ -106,7 +106,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(540, 309);
+            this.ClientSize = new System.Drawing.Size(537, 309);
             this.Controls.Add(this.buttonConnect);
             this.Controls.Add(this.textBoxPort);
             this.Controls.Add(this.textBoxAddress);
