@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 using System.Net;
 using System.Net.Sockets;
+using System.IO;
+
 namespace ChatProgramClient
 {
     public partial class LoggedInScreen : Form
@@ -70,6 +72,7 @@ namespace ChatProgramClient
                         }
                         this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
                         break;
+                    //privat uzenet
                     case 1:
                         if (tuple.Item2 == 0) //nincs fajl - 0 
                         {
@@ -99,6 +102,43 @@ namespace ChatProgramClient
                                     Application.Run();
                                 }
                             }
+
+                        }
+                        else if (tuple.Item2 == 1)// van fajl kuldes
+                        {
+                            if (tuple.Item3.Equals(myName))
+                            {
+                                MessagingScreen megnyitott;
+                                megnyitott = openWindows[tuple.Item4];
+                                megnyitott.AppendToTextBox("File sent", tuple.Item3);
+                                this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    byte[] fileByte = Encoding.ASCII.GetBytes(tuple.Item5);
+                                    SaveFileDialog sfd = new SaveFileDialog();
+                                    sfd.AutoUpgradeEnabled = false;
+                                    sfd.Filter = "Text File|*.txt";
+                                    if (sfd.ShowDialog() == DialogResult.OK)
+                                    {
+                                        File.WriteAllBytes(sfd.FileName, Encoding.ASCII.GetBytes(tuple.Item5));
+                                    }
+                                    if (openWindows.ContainsKey(tuple.Item3) == true)
+                                    {
+                                        MessagingScreen megnyitott;
+                                        megnyitott = openWindows[tuple.Item3];
+                                        megnyitott.AppendToTextBox("File received", tuple.Item3);
+                                        this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+
                         }
                         break;
                     //chatsszoba

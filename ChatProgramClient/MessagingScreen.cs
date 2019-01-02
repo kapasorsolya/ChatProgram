@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -45,10 +46,6 @@ namespace ChatProgramClient
                 MessageBox.Show("2 " + ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void btnSendFile_Click(object sender, EventArgs e)
-        {
-            ;
-        }
         private void SendCallback(IAsyncResult AR)
         {
             try
@@ -79,6 +76,35 @@ namespace ChatProgramClient
         private void MessagingScreen_FormClosing(object sender, FormClosingEventArgs e)
         {
             parentScreen.RemoveFromOpenedWindowsList(this.Text);
+        }
+
+        private void btnSendFile_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                string fileString = string.Empty;
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.AutoUpgradeEnabled = false;
+                ofd.Filter = "Text File|*.txt";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    string path = ofd.FileName;
+                    byte[] fileByte = File.ReadAllBytes(path);
+                    fileString += Encoding.ASCII.GetString(fileByte);
+
+                    MessagePackage package = new MessagePackage();
+                    string toSendMessage;
+                    toSendMessage = package.ConcatenateMessage(MessageType, 1, MyName, this.Text, fileString);
+                    byte[] buff = Encoding.ASCII.GetBytes(toSendMessage);
+                    ClientSocket.BeginSend(buff, 0, buff.Length, SocketFlags.None, new AsyncCallback(SendCallback), null);
+                }
+            }
+            catch (SocketException) { }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }

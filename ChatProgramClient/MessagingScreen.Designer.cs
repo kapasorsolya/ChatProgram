@@ -51,19 +51,20 @@
             // 
             this.btnSendFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSendFile.Enabled = false;
-            this.btnSendFile.Location = new System.Drawing.Point(202, 245);
+            this.btnSendFile.Location = new System.Drawing.Point(192, 245);
             this.btnSendFile.Name = "btnSendFile";
-            this.btnSendFile.Size = new System.Drawing.Size(75, 23);
+            this.btnSendFile.Size = new System.Drawing.Size(85, 38);
             this.btnSendFile.TabIndex = 7;
             this.btnSendFile.Text = "Send File";
             this.btnSendFile.UseVisualStyleBackColor = true;
+            this.btnSendFile.Click += new System.EventHandler(this.btnSendFile_Click_1);
             // 
             // buttonSend
             // 
             this.buttonSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSend.Location = new System.Drawing.Point(283, 245);
             this.buttonSend.Name = "buttonSend";
-            this.buttonSend.Size = new System.Drawing.Size(75, 23);
+            this.buttonSend.Size = new System.Drawing.Size(75, 38);
             this.buttonSend.TabIndex = 6;
             this.buttonSend.Text = "Send";
             this.buttonSend.UseVisualStyleBackColor = true;
