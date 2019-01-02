@@ -121,6 +121,7 @@ namespace ChatProgramClient
                                     SaveFileDialog sfd = new SaveFileDialog();
                                     sfd.AutoUpgradeEnabled = false;
                                     sfd.Filter = "Text File|*.txt";
+                                    //sfd.Filter = "Image Files |*.JPG;*.PNG| Text File|*.txt";
                                     if (sfd.ShowDialog() == DialogResult.OK)
                                     {
                                         File.WriteAllBytes(sfd.FileName, Encoding.ASCII.GetBytes(tuple.Item5));
@@ -143,7 +144,7 @@ namespace ChatProgramClient
                         break;
                     //chatsszoba
                     case 2:
-                        if (tuple.Item2 == 0)
+                        if (tuple.Item2 == 0) //nincs fajlkuldes
                         {
                             if (openWindows.ContainsKey(tuple.Item4) == true)
                             {
@@ -160,6 +161,42 @@ namespace ChatProgramClient
                                 messagingScreen.Show();
                                 this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
                                 Application.Run();
+                            }
+                        }
+                        else if (tuple.Item2 == 1) // van fajlkuldes
+                        {
+                            if (tuple.Item3.Equals(myName))
+                            {
+                                MessagingScreen megnyitott;
+                                megnyitott = openWindows[tuple.Item4];
+                                megnyitott.AppendToTextBox("File sent", tuple.Item3);
+                                this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    byte[] fileByte = Encoding.ASCII.GetBytes(tuple.Item5);
+                                    SaveFileDialog sfd = new SaveFileDialog();
+                                    sfd.AutoUpgradeEnabled = false;
+                                    sfd.Filter = "Text File|*.txt";
+                                   //sfd.Filter = "Image Files | *.BMP; *.JPG; *.GIF | All files(*.*) | *.*";
+                                    if (sfd.ShowDialog() == DialogResult.OK)
+                                    {
+                                        File.WriteAllBytes(sfd.FileName, Encoding.ASCII.GetBytes(tuple.Item5));
+                                    }
+                                    if (openWindows.ContainsKey(tuple.Item4) == true)
+                                    {
+                                        MessagingScreen megnyitott;
+                                        megnyitott = openWindows[tuple.Item4];
+                                        megnyitott.AppendToTextBox("File received", tuple.Item3);
+                                        this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                         }
                         break;
@@ -185,6 +222,41 @@ namespace ChatProgramClient
                                 Application.Run();
                             }
 
+                        }
+                        else if (tuple.Item2 == 1)
+                        {
+                            if (tuple.Item3.Equals(myName))
+                            {
+                                MessagingScreen megnyitott;
+                                megnyitott = openWindows[tuple.Item4];
+                                megnyitott.AppendToTextBox("File sent", tuple.Item3);
+                                this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    byte[] fileByte = Encoding.ASCII.GetBytes(tuple.Item5);
+                                    SaveFileDialog sfd = new SaveFileDialog();
+                                    sfd.AutoUpgradeEnabled = false;
+                                    sfd.Filter = "Text File|*.txt";
+                                    if (sfd.ShowDialog() == DialogResult.OK)
+                                    {
+                                        File.WriteAllBytes(sfd.FileName, Encoding.ASCII.GetBytes(tuple.Item5));
+                                    }
+                                    if (openWindows.ContainsKey(tuple.Item4) == true)
+                                    {
+                                        MessagingScreen megnyitott;
+                                        megnyitott = openWindows[tuple.Item4];
+                                        megnyitott.AppendToTextBox("File received", tuple.Item3);
+                                        this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
                         }
                         break;
                     

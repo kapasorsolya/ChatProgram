@@ -86,6 +86,7 @@ namespace ChatProgramClient
                 OpenFileDialog ofd = new OpenFileDialog();
                 ofd.AutoUpgradeEnabled = false;
                 ofd.Filter = "Text File|*.txt";
+               // ofd.Filter = "Image Files |*.JPG;*.PNG| Text File|*.txt";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     string path = ofd.FileName;
