@@ -101,7 +101,27 @@ namespace ChatProgramClient
                             }
                         }
                         break;
+                    //chatsszoba
                     case 2:
+                        if (tuple.Item2 == 0)
+                        {
+                            if (openWindows.ContainsKey(tuple.Item4) == true)
+                            {
+                                MessagingScreen megnyitott;
+                                megnyitott = openWindows[tuple.Item4];
+                                megnyitott.AppendToTextBox(tuple.Item5, tuple.Item3);
+                                this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+                            }
+                            else
+                            {
+                                MessagingScreen messagingScreen = OpenNewMessagingScreen(chatRoomParticipants, tuple.Item4, 2);
+                                messagingScreen.AppendToTextBox(tuple.Item5, tuple.Item3);
+                                openWindows.Add(tuple.Item4, messagingScreen);
+                                messagingScreen.Show();
+                                this.ClientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+                                Application.Run();
+                            }
+                        }
                         break;
                     //mindenkinek kuldes
                     case 3:
